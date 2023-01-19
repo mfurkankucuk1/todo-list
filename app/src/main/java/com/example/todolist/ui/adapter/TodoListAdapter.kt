@@ -1,0 +1,91 @@
+package com.example.todolist.ui.adapter
+
+import android.annotation.SuppressLint
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.example.todolist.data.model.TodoListModel
+import com.example.todolist.databinding.ItemRowTodoListBinding
+
+class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>() {
+
+    inner class TodoListViewHolder(val binding: ItemRowTodoListBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+    var list = ArrayList<TodoListModel>()
+        @SuppressLint("NotifyDataSetChanged")
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
+
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): TodoListViewHolder {
+
+        return TodoListViewHolder(
+            ItemRowTodoListBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
+    }
+
+    override fun onBindViewHolder(
+        holder: TodoListViewHolder,
+        position: Int
+    ) {
+        val currentItem = list[position]
+        holder.binding.apply {
+            tvTitle.text = currentItem.title
+            tvDescription.text = currentItem.description
+            handleClickEvents(holder, currentItem)
+        }
+    }
+
+    private fun handleClickEvents(
+        holder: TodoListViewHolder,
+        currentItem: TodoListModel
+    ) {
+        holder.binding.apply {
+            imgRemove.setOnClickListener {
+                onClickDeleteListener?.let {
+                    it(currentItem)
+                }
+            }
+            imgEdit.setOnClickListener {
+                onUpdateClickListener?.let {
+                    it(currentItem)
+                }
+            }
+            btnDone.setOnClickListener {
+                onDoneClickListener?.let { it(currentItem) }
+            }
+        }
+    }
+
+    override fun getItemCount() = list.size
+
+    private var onClickDeleteListener: ((TodoListModel) -> Unit?)? = null
+
+    fun setOnDeleteClickListener(listener: ((TodoListModel) -> Unit?)) {
+        onClickDeleteListener = listener
+    }
+
+    private var onUpdateClickListener: ((TodoListModel) -> Unit?)? = null
+
+    fun setOnUpdateClickListener(listener: ((TodoListModel) -> Unit?)) {
+        onUpdateClickListener = listener
+    }
+
+    private var onDoneClickListener: ((TodoListModel) -> Unit?)? = null
+
+    fun setOnDoneClickListener(listener: ((TodoListModel) -> Unit?)) {
+        onDoneClickListener = listener
+    }
+
+
+}

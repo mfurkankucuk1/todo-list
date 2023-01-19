@@ -11,10 +11,48 @@ class TodoListRepository @Inject constructor(
     private val todoListDatabaseDao: TodoListDatabaseDao
 ) {
 
+
+    /**
+     * Add task to db
+     * **/
     suspend fun addTodo(todoListModel: TodoListModel) = flow {
         emit(Resource.Loading(true))
         val addTodoResponse = todoListDatabaseDao.insert(todoListModel)
         emit(Resource.Success(addTodoResponse))
+    }.catch { e ->
+        emit(Resource.Error(e.message.toString()))
+    }
+
+    /**
+     * Get all task list in db
+     * **/
+    suspend fun getAlLTodoList() = flow {
+        emit(Resource.Loading(true))
+        val getAllTodoList = todoListDatabaseDao.getAllTodoList()
+        emit(Resource.Success(getAllTodoList))
+    }.catch { e ->
+        emit(Resource.Error(e.message.toString()))
+    }
+
+    /**
+     * Delete task in db
+     * **/
+
+    suspend fun deleteTask(todoListModel: TodoListModel) = flow {
+        emit(Resource.Loading(true))
+        val getAllTodoList = todoListDatabaseDao.deleteTask(todo = todoListModel)
+        emit(Resource.Success(getAllTodoList))
+    }.catch { e ->
+        emit(Resource.Error(e.message.toString()))
+    }
+
+    /**
+     * Update done
+     * **/
+    suspend fun updateTakeDone(id:Int,isDone:Int) = flow {
+        emit(Resource.Loading(true))
+        val getAllTodoList = todoListDatabaseDao.updateTakeDone(taskId = id, isDoneValue = isDone)
+        emit(Resource.Success(getAllTodoList))
     }.catch { e ->
         emit(Resource.Error(e.message.toString()))
     }
