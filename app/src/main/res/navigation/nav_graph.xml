@@ -9,5 +9,15 @@
         android:id="@+id/todoListFragment"
         android:name="com.example.todolist.ui.TodoListFragment"
         android:label="fragment_todo_list"
-        tools:layout="@layout/fragment_todo_list" />
+        tools:layout="@layout/fragment_todo_list">
+        <action
+            android:id="@+id/action_todoListFragment_to_newTaskFragmnet"
+            app:destination="@id/newTaskFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/newTaskFragment"
+        android:name="com.example.todolist.ui.NewTaskFragment"
+        android:label="fragment_new_task"
+        tools:layout="@layout/fragment_new_task" />
 </navigation>

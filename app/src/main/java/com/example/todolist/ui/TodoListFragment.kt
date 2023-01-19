@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.todolist.R
 import com.example.todolist.databinding.FragmentTodoListBinding
+import com.example.todolist.utils.customNavigate
 import com.example.todolist.utils.remove
 import com.example.todolist.viewModel.TodoListViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,8 +21,8 @@ class TodoListFragment : Fragment() {
     private val todoListViewModel: TodoListViewModel by activityViewModels<TodoListViewModel>()
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         _binding = FragmentTodoListBinding.inflate(inflater, container, false)
         return binding.root
@@ -47,7 +48,11 @@ class TodoListFragment : Fragment() {
     }
 
     private fun handleClickEvents() {
-
+        binding.apply {
+            btnNewTask.setOnClickListener {
+                customNavigate(R.id.action_todoListFragment_to_newTaskFragmnet, bundle = null)
+            }
+        }
     }
 
     private fun initialize() {

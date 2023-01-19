@@ -18,8 +18,12 @@ class TodoListViewModel @Inject constructor(
     private val todoListRepository: TodoListRepository
 ) : AndroidViewModel(application) {
 
-    private var _addTodoResponse: MutableLiveData<Resource<Long>> = MutableLiveData()
-    val addTodoResponse: LiveData<Resource<Long>> get() = _addTodoResponse
+    private var _addTodoResponse: MutableLiveData<Resource<Long>?> = MutableLiveData()
+    val addTodoResponse: LiveData<Resource<Long>?> get() = _addTodoResponse
+
+    fun clearAddTaskResponse(){
+        _addTodoResponse.postValue(null)
+    }
 
     fun addTodo(todoListModel: TodoListModel) {
         addTodoSafeCall(todoListModel)

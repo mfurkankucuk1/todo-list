@@ -11,6 +11,7 @@
 
     <color name="description_text_color">#000000CC</color>
     <color name="done_button_color">#1ADB5C</color>
+    <color name="cancel_button_color">#FF0000</color>
     <color name="header_title_text_color">#1AB8DB</color>
     <color name="bottom_buttons_background_color">#8B8B8B</color>
 
