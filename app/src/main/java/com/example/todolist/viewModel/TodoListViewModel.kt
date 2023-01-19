@@ -113,9 +113,35 @@ class TodoListViewModel @Inject constructor(
 
     private fun updateDoneTaskSafeCall(id: Int, isDone: Int) {
         viewModelScope.launch {
-            todoListRepository.updateTakeDone(id = id, isDone = isDone).collect() {
+            todoListRepository.updateTaskDone(id = id, isDone = isDone).collect() {
                 it.let {
                     _updateDoneTaskResponse.postValue(it)
+                }
+            }
+        }
+    }
+
+    /**
+     * Update task
+     * **/
+
+    private var _updateTaskResponse: MutableLiveData<Resource<Int>?> =
+        MutableLiveData()
+    val updateTaskResponse: LiveData<Resource<Int>?> get() = _updateTaskResponse
+
+    fun clearUpdateTaskResponse() {
+        _updateDoneTaskResponse.postValue(null)
+    }
+
+    fun updateTask(id: Int, title: String, description: String) {
+        updateTaskSafeCall(id, title, description)
+    }
+
+    private fun updateTaskSafeCall(id: Int, title: String, description: String) {
+        viewModelScope.launch {
+            todoListRepository.updateTask(id, title, description).collect() {
+                it.let {
+                    _updateTaskResponse.postValue(it)
                 }
             }
         }

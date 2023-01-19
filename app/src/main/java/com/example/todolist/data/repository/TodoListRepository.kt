@@ -49,7 +49,7 @@ class TodoListRepository @Inject constructor(
     /**
      * Update done
      * **/
-    suspend fun updateTakeDone(id:Int,isDone:Int) = flow {
+    suspend fun updateTaskDone(id: Int, isDone: Int) = flow {
         emit(Resource.Loading(true))
         val getAllTodoList = todoListDatabaseDao.updateTakeDone(taskId = id, isDoneValue = isDone)
         emit(Resource.Success(getAllTodoList))
@@ -57,4 +57,15 @@ class TodoListRepository @Inject constructor(
         emit(Resource.Error(e.message.toString()))
     }
 
+    /**
+     * Update task
+     * **/
+    suspend fun updateTask(id: Int, title: String, description: String) = flow {
+        emit(Resource.Loading(true))
+        val getAllTodoList =
+            todoListDatabaseDao.updateTask(taskId = id, title = title, description = description)
+        emit(Resource.Success(getAllTodoList))
+    }.catch { e ->
+        emit(Resource.Error(e.message.toString()))
+    }
 }

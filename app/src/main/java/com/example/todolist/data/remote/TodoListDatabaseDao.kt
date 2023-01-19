@@ -21,7 +21,7 @@ interface TodoListDatabaseDao {
     @Query("SELECT * FROM TodoListModel WHERE isDone = 1")
     suspend fun getTaskDoneList(): List<TodoListModel>
 
-    @Query("UPDATE TodoListModel SET title =:title AND description=:description WHERE id=:taskId")
+    @Query("UPDATE TodoListModel SET title =:title , description=:description WHERE id=:taskId")
     suspend fun updateTask(taskId: Int, title: String, description: String): Int
 
 
