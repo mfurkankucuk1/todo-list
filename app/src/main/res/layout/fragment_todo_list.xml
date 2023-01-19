@@ -8,10 +8,10 @@
     tools:context=".ui.TodoListFragment">
 
     <include
+        layout="@layout/layout_header"
         android:id="@+id/incHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTodoList"
