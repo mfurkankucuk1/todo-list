@@ -2,4 +2,9 @@
     <string name="app_name">TodoList</string>
     <string name="done">Done</string>
     <string name="image">image</string>
+    <string name="todo_list">Todo List</string>
+    <string name="task_list">Task List</string>
+    <string name="new_task">New Task</string>
+    <string name="done_list">Done List</string>
+    <string name="settings">Settings</string>
 </resources>

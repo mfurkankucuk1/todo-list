@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.example.todolist.R
 import com.example.todolist.databinding.FragmentTodoListBinding
+import com.example.todolist.utils.remove
 import com.example.todolist.viewModel.TodoListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,8 +20,8 @@ class TodoListFragment : Fragment() {
     private val todoListViewModel: TodoListViewModel by activityViewModels<TodoListViewModel>()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         _binding = FragmentTodoListBinding.inflate(inflater, container, false)
         return binding.root
@@ -28,8 +30,16 @@ class TodoListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initialize()
+        setupUI()
         handleClickEvents()
         subscribeObserve()
+    }
+
+    private fun setupUI() {
+        binding.incHeader.apply {
+            tvHeader.text = requireContext().getString(R.string.task_list).uppercase()
+            imgClose.remove()
+        }
     }
 
     private fun subscribeObserve() {
