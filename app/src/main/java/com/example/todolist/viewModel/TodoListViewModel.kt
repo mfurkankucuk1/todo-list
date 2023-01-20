@@ -147,4 +147,30 @@ class TodoListViewModel @Inject constructor(
         }
     }
 
+    /**
+     * All done task list
+     * **/
+
+    private var _getAllDoneTaskListResponse: MutableLiveData<Resource<List<TodoListModel>>?> =
+        MutableLiveData()
+    val getAllDoneTaskListResponse: LiveData<Resource<List<TodoListModel>>?> get() = _getAllDoneTaskListResponse
+
+    fun clearGetAllDoneTaskListResponse() {
+        _getAllDoneTaskListResponse.postValue(null)
+    }
+
+    fun getAllDoneTaskList() {
+        getAllDoneTaskListSafeCall()
+    }
+
+    private fun getAllDoneTaskListSafeCall() {
+        viewModelScope.launch {
+            todoListRepository.getTaskDoneList().collect() {
+                it.let {
+                    _getAllDoneTaskListResponse.postValue(it)
+                }
+            }
+        }
+    }
+
 }

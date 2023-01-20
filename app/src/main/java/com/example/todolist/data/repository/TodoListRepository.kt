@@ -68,4 +68,17 @@ class TodoListRepository @Inject constructor(
     }.catch { e ->
         emit(Resource.Error(e.message.toString()))
     }
+
+    /**
+     * Get all done task list
+     * **/
+    suspend fun getTaskDoneList() = flow {
+        emit(Resource.Loading(true))
+        val getAllDoneList =
+            todoListDatabaseDao.getTaskDoneList()
+        emit(Resource.Success(getAllDoneList))
+    }.catch { e ->
+        emit(Resource.Error(e.message.toString()))
+    }
+
 }

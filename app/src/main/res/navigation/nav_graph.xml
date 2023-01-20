@@ -13,6 +13,10 @@
         <action
             android:id="@+id/action_todoListFragment_to_newTaskFragmnet"
             app:destination="@id/newTaskFragment" />
+
+        <action
+            android:id="@+id/action_todoListFragment_to_doneListFragment"
+            app:destination="@id/doneListFragment" />
     </fragment>
 
     <fragment
@@ -20,4 +24,9 @@
         android:name="com.example.todolist.ui.NewTaskFragment"
         android:label="fragment_new_task"
         tools:layout="@layout/fragment_new_task" />
+    <fragment
+        android:id="@+id/doneListFragment"
+        android:name="com.example.todolist.ui.DoneListFragment"
+        android:label="fragment_done_list"
+        tools:layout="@layout/fragment_done_list" />
 </navigation>

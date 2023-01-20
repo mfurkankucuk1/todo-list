@@ -25,7 +25,7 @@ class TodoListFragment : Fragment() {
     private var _binding: FragmentTodoListBinding? = null
     private val binding: FragmentTodoListBinding get() = _binding!!
     private val todoListViewModel: TodoListViewModel by activityViewModels<TodoListViewModel>()
-    private val todoListAdapter: TodoListAdapter by lazy { TodoListAdapter() }
+    private val todoListAdapter: TodoListAdapter by lazy { TodoListAdapter(isDoneList = false) }
     private var todoList = ArrayList<TodoListModel>()
 
     override fun onCreateView(
@@ -95,7 +95,24 @@ class TodoListFragment : Fragment() {
                 }
             }
         }
+        todoListViewModel.updateDoneTaskResponse.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Error -> {
+
+                }
+                is Resource.Success -> {
+                    response?.data?.let { result ->
+                        setupGetAllTaskList()
+                    }
+                    todoListViewModel.clearUpdateDoneTaskResponse()
+                }
+            }
+        }
     }
+
 
     private fun handleAllTaskListSuccessResponse(result: List<TodoListModel>) {
         todoList = ArrayList()
@@ -107,6 +124,9 @@ class TodoListFragment : Fragment() {
         binding.apply {
             btnNewTask.setOnClickListener {
                 setupNavigateDetail(currentItem = null, isUpdate = false)
+            }
+            btnDoneList.setOnClickListener {
+                setupNavigateDoneList()
             }
         }
         todoListAdapter.apply {
@@ -121,6 +141,10 @@ class TodoListFragment : Fragment() {
                 setupTaskDone(currentItem)
             }
         }
+    }
+
+    private fun setupNavigateDoneList() {
+        customNavigate(R.id.action_todoListFragment_to_doneListFragment, null)
     }
 
     private fun setupTaskDone(currentItem: TodoListModel) {
