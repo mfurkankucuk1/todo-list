@@ -12,7 +12,7 @@ interface TodoListDatabaseDao {
     @Delete
     suspend fun deleteTask(todo: TodoListModel): Int
 
-    @Query("SELECT * FROM TodoListModel")
+    @Query("SELECT * FROM TodoListModel WHERE isDone = 0")
     suspend fun getAllTodoList(): List<TodoListModel>
 
     @Query("UPDATE TodoListModel SET isDone =:isDoneValue WHERE id =:taskId")
