@@ -1,46 +1,22 @@
 package com.example.todolist.viewModel
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.todolist.data.model.Resource
 import com.example.todolist.data.model.TodoListModel
 import com.example.todolist.data.repository.TodoListRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
-@HiltViewModel
-class TodoListViewModel @Inject constructor(
-    private val todoListRepository: TodoListRepository
-) : ViewModel() {
-
-    /**
-     * Add task
-     **/
-
-    private var _addTodoResponse: MutableLiveData<Resource<Long>?> = MutableLiveData()
-    val addTodoResponse: LiveData<Resource<Long>?> get() = _addTodoResponse
-
-    fun clearAddTaskResponse() {
-        _addTodoResponse.postValue(null)
-    }
-
-    fun addTodo(todoListModel: TodoListModel) {
-        addTodoSafeCall(todoListModel)
-    }
-
-    private fun addTodoSafeCall(todoListModel: TodoListModel) {
-        viewModelScope.launch {
-            todoListRepository.addTodo(todoListModel).collect {
-                it.let {
-                    _addTodoResponse.postValue(it)
-                }
-            }
-        }
-    }
+class TodoListServiceViewModel @Inject constructor(
+    val viewModelScope:CoroutineScope,
+    val todoListRepository: TodoListRepository,
+    @ApplicationContext context:Context
+) {
 
     /**
      * Gel all task list
@@ -90,31 +66,6 @@ class TodoListViewModel @Inject constructor(
         }
     }
 
-    /**
-     * Delete task
-     * **/
-
-    private var _deleteTaskResponse: MutableLiveData<Resource<Int>?> =
-        MutableLiveData()
-    val deleteTaskResponse: LiveData<Resource<Int>?> get() = _deleteTaskResponse
-
-    fun clearDeleteTaskResponse() {
-        _deleteTaskResponse.postValue(null)
-    }
-
-    fun deleteTask(todoListModel: TodoListModel) {
-        deleteTaskSafeCall(todoListModel)
-    }
-
-    private fun deleteTaskSafeCall(todoListModel: TodoListModel) {
-        viewModelScope.launch {
-            todoListRepository.deleteTask(todoListModel).collect() {
-                it.let {
-                    _deleteTaskResponse.postValue(it)
-                }
-            }
-        }
-    }
 
     /**
      * Update done task
@@ -168,56 +119,5 @@ class TodoListViewModel @Inject constructor(
         }
     }
 
-    /**
-     * Update task
-     * **/
-
-    private var _updateTaskResponse: MutableLiveData<Resource<Int>?> =
-        MutableLiveData()
-    val updateTaskResponse: LiveData<Resource<Int>?> get() = _updateTaskResponse
-
-    fun clearUpdateTaskResponse() {
-        _updateDoneTaskResponse.postValue(null)
-    }
-
-    fun updateTask(id: Int, title: String, description: String) {
-        updateTaskSafeCall(id, title, description)
-    }
-
-    private fun updateTaskSafeCall(id: Int, title: String, description: String) {
-        viewModelScope.launch {
-            todoListRepository.updateTask(id, title, description).collect() {
-                it.let {
-                    _updateTaskResponse.postValue(it)
-                }
-            }
-        }
-    }
-
-    /**
-     * All done task list
-     * **/
-
-    private var _getAllDoneTaskListResponse: MutableLiveData<Resource<List<TodoListModel>>?> =
-        MutableLiveData()
-    val getAllDoneTaskListResponse: LiveData<Resource<List<TodoListModel>>?> get() = _getAllDoneTaskListResponse
-
-    fun clearGetAllDoneTaskListResponse() {
-        _getAllDoneTaskListResponse.postValue(null)
-    }
-
-    fun getAllDoneTaskList() {
-        getAllDoneTaskListSafeCall()
-    }
-
-    private fun getAllDoneTaskListSafeCall() {
-        viewModelScope.launch {
-            todoListRepository.getTaskDoneList().collect() {
-                it.let {
-                    _getAllDoneTaskListResponse.postValue(it)
-                }
-            }
-        }
-    }
 
 }

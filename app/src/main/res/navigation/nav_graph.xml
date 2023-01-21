@@ -9,5 +9,34 @@
         android:id="@+id/todoListFragment"
         android:name="com.example.todolist.ui.TodoListFragment"
         android:label="fragment_todo_list"
-        tools:layout="@layout/fragment_todo_list" />
+        tools:layout="@layout/fragment_todo_list">
+        <action
+            android:id="@+id/action_todoListFragment_to_newTaskFragmnet"
+            app:destination="@id/newTaskFragment" />
+
+        <action
+            android:id="@+id/action_todoListFragment_to_doneListFragment"
+            app:destination="@id/doneListFragment" />
+
+        <action
+            android:id="@+id/action_todoListFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/newTaskFragment"
+        android:name="com.example.todolist.ui.NewTaskFragment"
+        android:label="fragment_new_task"
+        tools:layout="@layout/fragment_new_task" />
+    <fragment
+        android:id="@+id/doneListFragment"
+        android:name="com.example.todolist.ui.DoneListFragment"
+        android:label="fragment_done_list"
+        tools:layout="@layout/fragment_done_list" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.todolist.ui.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>
