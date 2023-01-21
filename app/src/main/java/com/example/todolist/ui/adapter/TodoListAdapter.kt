@@ -10,7 +10,7 @@ import com.example.todolist.data.model.TodoListModel
 import com.example.todolist.databinding.ItemRowTodoListBinding
 import com.example.todolist.utils.remove
 
-class TodoListAdapter constructor(private val isDoneList: Boolean) :
+class TodoListAdapter constructor(private val isDoneList: Boolean, private val isOverlay: Boolean) :
     RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>() {
 
     inner class TodoListViewHolder(val binding: ItemRowTodoListBinding) :
@@ -57,6 +57,9 @@ class TodoListAdapter constructor(private val isDoneList: Boolean) :
                         R.color.move_to_task_list_button_color
                     )
                 )
+            } else if (isOverlay) {
+                imgEdit.remove()
+                imgRemove.remove()
             } else {
                 btnDone.text =
                     holder.itemView.context.resources.getString(R.string.done)

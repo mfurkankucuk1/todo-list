@@ -25,7 +25,7 @@ class TodoListFragment : Fragment() {
     private var _binding: FragmentTodoListBinding? = null
     private val binding: FragmentTodoListBinding get() = _binding!!
     private val todoListViewModel: TodoListViewModel by activityViewModels<TodoListViewModel>()
-    private val todoListAdapter: TodoListAdapter by lazy { TodoListAdapter(isDoneList = false) }
+    private val todoListAdapter: TodoListAdapter by lazy { TodoListAdapter(isDoneList = false,isOverlay = false) }
     private var todoList = ArrayList<TodoListModel>()
 
     override fun onCreateView(

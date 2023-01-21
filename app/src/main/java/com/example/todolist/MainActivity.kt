@@ -12,7 +12,6 @@ import android.provider.Settings
 import android.view.Gravity
 import android.view.ViewGroup
 import android.view.WindowManager
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.todolist.data.model.TodoListModel
@@ -22,7 +21,6 @@ import com.example.todolist.databinding.LayoutOverlayBinding
 import com.example.todolist.service.OverlayForegroundService
 import com.example.todolist.ui.adapter.TodoListAdapter
 import com.example.todolist.utils.Constants
-import com.example.todolist.viewModel.TodoListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
@@ -38,7 +36,7 @@ class MainActivity : AppCompatActivity() {
     private var mView: LayoutOverlayBinding? = null
     private var mParams: WindowManager.LayoutParams? = null
     private var mWindowManager: WindowManager? = null
-    private val todoListAdapter: TodoListAdapter by lazy { TodoListAdapter(isDoneList = false) }
+    private val todoListAdapter: TodoListAdapter by lazy { TodoListAdapter(isDoneList = false,isOverlay = true) }
     private var todoList = ArrayList<TodoListModel>()
     private var countValue = 0
     private var isOpenService = false
@@ -64,7 +62,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupTaskDone(currentItem: TodoListModel) {
         val updateIntent = Intent("UpdateAction")
-        updateIntent.putExtra("model",currentItem)
+        updateIntent.putExtra("model", currentItem)
         LocalBroadcastManager.getInstance(this).sendBroadcast(updateIntent)
     }
 
