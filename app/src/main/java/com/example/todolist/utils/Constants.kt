@@ -13,4 +13,13 @@ object Constants {
     const val TASK_DESCRIPTION_BUNDLE_KEY = "taskDescriptionBundleKey"
 
 
+    /**
+     * Preference
+     * **/
+    const val PREFERENCES_NAME = "myPreference"
+    const val THEME_COLOR = "themeColor"
+    const val SEND_BROADCAST_DATA = "SEND_BROADCAST_DATA"
+    const val SERVICE_COUNT = "SERVICE_COUNT"
+    const val IS_OPEN_SERVICE = "isOpenService"
+
 }

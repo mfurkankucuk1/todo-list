@@ -78,7 +78,6 @@ class TodoListFragment : Fragment() {
                 }
             }
         }
-
         todoListViewModel.deleteTaskResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
@@ -128,6 +127,9 @@ class TodoListFragment : Fragment() {
             btnDoneList.setOnClickListener {
                 setupNavigateDoneList()
             }
+            btnSettings.setOnClickListener {
+                setupNavigateSettings()
+            }
         }
         todoListAdapter.apply {
             setOnDeleteClickListener { currentItem ->
@@ -136,11 +138,14 @@ class TodoListFragment : Fragment() {
             setOnUpdateClickListener { currentItem ->
                 setupNavigateDetail(currentItem = currentItem, isUpdate = true)
             }
-
             setOnDoneClickListener { currentItem ->
                 setupTaskDone(currentItem)
             }
         }
+    }
+
+    private fun setupNavigateSettings() {
+        customNavigate(R.id.action_todoListFragment_to_settingsFragment, null)
     }
 
     private fun setupNavigateDoneList() {

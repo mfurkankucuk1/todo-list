@@ -16,4 +16,10 @@
     <string name="update_task">Update Task</string>
     <string name="update">Update</string>
     <string name="move_to_task_list">Move To Task List</string>
+    <string name="theme_color">Theme Color</string>
+    <string name="close_overlay">Close Overlay</string>
+    <string name="overlay">Overlay</string>
+    <string name="show_task_list">Task Listesini Göster</string>
+    <string name="foreground_service_notification">Foreground service notification</string>
+    <string name="active">saniyedir aktif</string>
 </resources>
