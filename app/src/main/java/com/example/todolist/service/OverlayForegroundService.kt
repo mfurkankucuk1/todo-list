@@ -1,6 +1,7 @@
 package com.example.todolist.service
 
 import android.app.*
+import android.app.PendingIntent.FLAG_MUTABLE
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -149,7 +150,7 @@ class OverlayForegroundService : LifecycleService() {
         }, IntentFilter("ServiceBroadcast"))
         val pi = PendingIntent.getBroadcast(
             this, 0,
-            Intent("ServiceBroadcast"), 0
+            Intent("ServiceBroadcast"),  FLAG_MUTABLE
         )
         remoteviews.setOnClickPendingIntent(R.id.btnShowTaskList, pi)
 

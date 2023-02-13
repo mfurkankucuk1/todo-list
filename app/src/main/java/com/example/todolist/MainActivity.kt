@@ -143,13 +143,21 @@ class MainActivity : AppCompatActivity() {
                 btnCloseOverlay.setOnClickListener {
                     closeOverlayScreen()
                 }
-                llGeneral.setBackgroundColor(
-                    Color.parseColor(
-                        preferencesRepository.getStringPreferences(
-                            Constants.THEME_COLOR
+                if (preferencesRepository.getStringPreferences(Constants.THEME_COLOR).isNullOrEmpty()){
+                    llGeneral.setBackgroundColor(
+                        Color.parseColor(
+                            "#FFFFFF"
                         )
                     )
-                )
+                }else{
+                    llGeneral.setBackgroundColor(
+                        Color.parseColor(
+                            preferencesRepository.getStringPreferences(Constants.THEME_COLOR)
+                        )
+                    )
+                }
+
+
 
                 rvTodoList.adapter = todoListAdapter
             }
